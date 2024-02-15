@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(31,41,55);
+    color: #cbc7c7;
+}
 
 .end-bracket::after,
 .start-bracket::after {

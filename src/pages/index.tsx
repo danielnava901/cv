@@ -129,9 +129,9 @@ const IndexPage: React.FC<PageProps> = () => {
         }
     }, []);
   return (
-    <main className=" w-full h-full
-        bg-gray-800
-        text-gray-300
+    <main className="
+        w-[100vw]
+        h-[100vh]
         text-[0.9rem]
         lg:text-md relative
         ">
