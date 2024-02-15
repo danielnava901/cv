@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.end-bracket::after,
+.start-bracket::after {
+    content: "";
+    display: block;
+}
+
+pre {
+    color: red;
+    font-weight: bold;
+}

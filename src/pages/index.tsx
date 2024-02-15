@@ -1,189 +1,155 @@
 import * as React from "react"
 import type { HeadFC, PageProps } from "gatsby"
+import cvJson from '../data/cv.json';
+import {useEffect, useState} from "react";
+import reactStringReplace from 'react-string-replace';
+import {ViewOuter} from "../components/ViewOuter";
 
-const pageStyles = {
-  color: "#232129",
-  padding: 96,
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-}
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-}
-const headingAccentStyles = {
-  color: "#663399",
-}
-const paragraphStyles = {
-  marginBottom: 48,
-}
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-}
-const listStyles = {
-  marginBottom: 96,
-  paddingLeft: 0,
-}
-const doclistStyles = {
-  paddingLeft: 0,
-}
-const listItemStyles = {
-  fontWeight: 300,
-  fontSize: 24,
-  maxWidth: 560,
-  marginBottom: 30,
+function urlify(text) {
+    return reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
+        <a key={i} href={match}
+           className="underline text-blue-200 is-url"
+           target="_blank">{match}</a>
+    ));
 }
 
-const linkStyle = {
-  color: "#8954A8",
-  fontWeight: "bold",
-  fontSize: 16,
-  verticalAlign: "5%",
+const renderValue = (keyVal, key, index) => {
+    let renderElement = null;
+    switch (typeof keyVal) {
+        case "string":
+            renderElement = <span key={`${key}-${index}`}
+                              className="text-[#690] cursor-pointer lg:max-w-[490px]">
+                "{urlify(keyVal)}",
+            </span>
+            break;
+        case "number":
+            renderElement = <span key={`${key}-${index}`}
+                              className="code-number text-[#a83295] cursor-pointer">
+                {keyVal},
+            </span>
+            break;
+        case "boolean":
+            renderElement = <span key={`${key}-${index}`}
+                              className="code-number text-[#a83295] cursor-pointer">{
+                keyVal ? "true" : "false"
+            },</span>
+            break;
+        default:
+            renderElement = <div
+                key={`${key}-${index}`}
+                className="code-line">
+                {
+                    Array.isArray(keyVal) ? <span className="flex flex-col">
+                        <div className="code-line">
+                            <pre className="start-bracket">&#91;</pre>
+                        </div>
+                        {
+                            keyVal.map((subObj, i) => {
+                                let subKeys = Object.keys(subObj);
+                                return <div
+                                    key={`${key}-${i}`}
+                                    className="code-line pl-4 -left-8">
+                                    <div className="code-line">
+                                        <pre className="text-violet-500">&#123;</pre>
+                                    </div>
+                                    <div className="pl-4">
+                                        {
+                                            subKeys.map((sk, inx) => {
+                                                return renderValue(subObj[sk], sk, "pepe");
+                                            })
+                                        }
+                                    </div>
+                                    <div className="code-line">
+                                        <pre className="text-violet-500">&#125;,</pre>
+                                    </div>
+                                </div>
+                            })
+                        }
+                        <div className="code-line">
+                            <pre className="end-bracket">&#93;</pre>
+                        </div>
+                    </span> : (
+                    typeof keyVal === "object" ? <span>
+                            <div className="code-line">
+                                <pre className="text-violet-500">&#123;</pre>
+                            </div>
+                            {
+                                Object.keys(keyVal)
+                                    .map((sk, inx) => {
+                                    return renderValue(keyVal[sk], sk, inx);
+                                })
+                            }
+                            <div className="code-line">
+                                <pre className="text-violet-500">&#125;</pre>
+                            </div>
+                        </span> :
+                        <span>
+                            otro
+                        </span>
+                    )
+                }
+            </div>;
+            break;
+    }
+
+    return <span className="mr-4 mb-2 flex">
+        <div className="flex justify-center">
+            <span className="cursor-pointer">"{key}"</span>
+            <span className="mx-2">:</span>
+        </div>
+        {renderElement}
+    </span>
 }
-
-const docLinkStyle = {
-  ...linkStyle,
-  listStyleType: "none",
-  display: `inline-block`,
-  marginBottom: 24,
-  marginRight: 12,
-}
-
-const descriptionStyle = {
-  color: "#232129",
-  fontSize: 14,
-  marginTop: 10,
-  marginBottom: 0,
-  lineHeight: 1.25,
-}
-
-const docLinks = [
-  {
-    text: "TypeScript Documentation",
-    url: "https://www.gatsbyjs.com/docs/how-to/custom-configuration/typescript/",
-    color: "#8954A8",
-  },
-  {
-    text: "GraphQL Typegen Documentation",
-    url: "https://www.gatsbyjs.com/docs/how-to/local-development/graphql-typegen/",
-    color: "#8954A8",
-  }
-]
-
-const badgeStyle = {
-  color: "#fff",
-  backgroundColor: "#088413",
-  border: "1px solid #088413",
-  fontSize: 11,
-  fontWeight: "bold",
-  letterSpacing: 1,
-  borderRadius: 4,
-  padding: "4px 6px",
-  display: "inline-block",
-  position: "relative" as "relative",
-  top: -2,
-  marginLeft: 10,
-  lineHeight: 1,
-}
-
-const links = [
-  {
-    text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial/getting-started/",
-    description:
-      "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
-    color: "#E95800",
-  },
-  {
-    text: "How to Guides",
-    url: "https://www.gatsbyjs.com/docs/how-to/",
-    description:
-      "Practical step-by-step guides to help you achieve a specific goal. Most useful when you're trying to get something done.",
-    color: "#1099A8",
-  },
-  {
-    text: "Reference Guides",
-    url: "https://www.gatsbyjs.com/docs/reference/",
-    description:
-      "Nitty-gritty technical descriptions of how Gatsby works. Most useful when you need detailed information about Gatsby's APIs.",
-    color: "#BC027F",
-  },
-  {
-    text: "Conceptual Guides",
-    url: "https://www.gatsbyjs.com/docs/conceptual/",
-    description:
-      "Big-picture explanations of higher-level Gatsby concepts. Most useful for building understanding of a particular topic.",
-    color: "#0D96F2",
-  },
-  {
-    text: "Plugin Library",
-    url: "https://www.gatsbyjs.com/plugins",
-    description:
-      "Add functionality and customize your Gatsby site or app with thousands of plugins built by our amazing developer community.",
-    color: "#8EB814",
-  },
-  {
-    text: "Build and Host",
-    url: "https://www.gatsbyjs.com/cloud",
-    badge: true,
-    description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
-    color: "#663399",
-  },
-]
 
 const IndexPage: React.FC<PageProps> = () => {
+    const [data, setData] = useState(cvJson);
+    const [keys, setKeys] = useState(Object.keys(data));
+    const [currentUrlViewer, setCurrentUrlViewer] = useState<string|null>(null);
+    const [showViewer, setShowViewer] = useState(true);
+    useEffect(()=> {
+        let isUrlElements = document.querySelectorAll(".is-url");
+        isUrlElements.forEach(element => {
+           element.addEventListener("mouseenter", () => {
+               let url = element.attributes.getNamedItem("href").value;
+               console.log({url});
+               setCurrentUrlViewer(url);
+               setShowViewer(true);
+           });
+
+
+        });
+
+        return () => {
+            let isUrlElements = document.querySelectorAll(".is-url");
+            isUrlElements.forEach(element => {
+                element.removeEventListener("mouseenter", () => {
+                    setCurrentUrlViewer(null);
+                })
+            });
+        }
+    }, []);
   return (
-    <main style={pageStyles}>
-      <h1 style={headingStyles}>
-        Congratulations
-        <br />
-        <span style={headingAccentStyles}>— you just made a Gatsby site! 🎉🎉🎉</span>
-      </h1>
-      <p style={paragraphStyles}>
-        Edit <code style={codeStyles}>src/pages/index.tsx</code> to see this page
-        update in real-time. 😎
-      </p>
-      <ul style={doclistStyles}>
-        {docLinks.map(doc => (
-          <li key={doc.url} style={docLinkStyle}>
-            <a
-              style={linkStyle}
-              href={`${doc.url}?utm_source=starter&utm_medium=ts-docs&utm_campaign=minimal-starter-ts`}
-            >
-              {doc.text}
-            </a>
-          </li>
-        ))}
-      </ul>
-      <ul style={listStyles}>
-        {links.map(link => (
-          <li key={link.url} style={{ ...listItemStyles, color: link.color }}>
-            <span>
-              <a
-                style={linkStyle}
-                href={`${link.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter-ts`}
-              >
-                {link.text}
-              </a>
-              {link.badge && (
-                <span style={badgeStyle} aria-label="New Badge">
-                  NEW!
-                </span>
-              )}
-              <p style={descriptionStyle}>{link.description}</p>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <img
-        alt="Gatsby G Logo"
-        src="data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2a10 10 0 110 20 10 10 0 010-20zm0 2c-3.73 0-6.86 2.55-7.75 6L14 19.75c3.45-.89 6-4.02 6-7.75h-5.25v1.5h3.45a6.37 6.37 0 01-3.89 4.44L6.06 9.69C7 7.31 9.3 5.63 12 5.63c2.13 0 4 1.04 5.18 2.65l1.23-1.06A7.959 7.959 0 0012 4zm-8 8a8 8 0 008 8c.04 0 .09 0-8-8z' fill='%23639'/%3E%3C/svg%3E"
-      />
+    <main className=" w-full h-full
+        bg-gray-800
+        text-gray-300
+        text-[0.9rem]
+        lg:text-md relative
+        ">
+
+      <div className="w-full h-full p-3 font-mono">
+          <div className="code-line"><pre className="text-gray-200">&#123;</pre></div>
+          {
+              keys.map((key, index) => {
+                  return <div
+                      key={key}
+                      className="code-line flex pl-4 hover:bg-[rgba(131,141,155,0.3)] transition duration-500">
+                      { renderValue(data[key], key, index) }
+                  </div>
+              })
+          }
+          <div className="code-line"><pre className="text-gray-200">&#125;</pre></div>
+      </div>
+
     </main>
   )
 }
