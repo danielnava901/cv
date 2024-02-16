@@ -9,15 +9,23 @@ function urlify(text) {
     ));
 }
 
+function searchWords(text) {
+    return reactStringReplace(text,
+        /\b(Symfony|ReactJS|NextJS|Node|HTML|Python|Javascript|CSS|PHP|REST|SOAP|GPS|interfaces intuitivas|integración de sistemas|visualizar|cámaras|equipo de desarrollo)\b/,
+        (match, i) => (
+        <span className="text-blue-200">{match}</span>
+    ));
+}
+
 function isHidden(el) {
     let style = window.getComputedStyle(el);
     return (style.display === 'none')
 }
 
 const SpanWrap = ({k, children, index}) => (
-    <div className="w-full flex">
+    <div className="w-full flex hover:font-bold">
         <div className="flex">
-            <span className="mr-2">{k}</span>
+            <span className="mr-2 text-yellow-400 cursor-pointer">{k}</span>
             <span className="mr-4">:</span>
         </div>
         {children}
@@ -28,9 +36,10 @@ const renderFinalContent = (key, val, index) => {
     let renderElement;
     switch (typeof val) {
         case "string":
+
             renderElement = <SpanWrap k={key} key={`${key}-${index}`}>
                 <span className="text-[#690] cursor-pointer lg:max-w-[490px]">
-                    "{urlify(val)}"<span className="text-violet-400">,</span>
+                    "{searchWords(urlify(val))}"<span className="text-violet-400">,</span>
                 </span>
             </SpanWrap>
             break;
@@ -65,7 +74,7 @@ export const JsonToRender = ({info, open, length = 0}) => {
                parentElement = parentElement.parentElement;
                parentElement = parentElement.parentElement;
                const collapsable = parentElement.querySelector(".collapsable");
-               console.log("c", collapsable, isHidden(collapsable));
+
 
                if(isHidden(collapsable)) {
                    collapsable.style.display = "flex";
@@ -101,13 +110,13 @@ export const JsonToRender = ({info, open, length = 0}) => {
                                 </span>
                             </div>
 
-                            <span>{!isNaN(+key) ? '' : <span>{key}:</span>}</span>
+                            <span className="text-yellow-400 cursor-pointer">{!isNaN(+key) ? '' : <span>{key}:</span>}</span>
                             <span className="text-red-600 font-bold"> {bracketOpen}</span>
                         </div>
                         <div className="ml-8 collapsable"
                              style={{display: open ? 'flex': 'none'}}
                         >
-                            {JsonToRender({info: val, length: val.length, open})}
+                            {JsonToRender({info: val, length: val.length, open: true})}
                         </div>
                         <div>
                             <span className="text-red-600 font-bold">{bracketClose}</span>
