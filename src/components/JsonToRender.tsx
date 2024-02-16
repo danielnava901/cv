@@ -46,7 +46,7 @@ const renderFinalContent = (key, val, index) => {
         case "number":
             renderElement = <SpanWrap k={key} key={`${key}-${index}`}>
                 <span className="code-number text-[#a83295] cursor-pointer">
-                {val}<span className="text-violet-400"></span>
+                {val}<span className="text-violet-400">,</span>
                 </span>
             </SpanWrap>
             break;
