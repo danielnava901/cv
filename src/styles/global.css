@@ -8,14 +8,3 @@ html, body {
     background-color: rgb(31,41,55);
     color: #cbc7c7;
 }
-
-.end-bracket::after,
-.start-bracket::after {
-    content: "";
-    display: block;
-}
-
-pre {
-    color: red;
-    font-weight: bold;
-}
