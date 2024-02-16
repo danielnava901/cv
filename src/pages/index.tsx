@@ -15,7 +15,11 @@ const IndexPage : React.FC<PageProps> = () => {
         <div className="w-full h-full p-3 font-mono flex flex-col">
             <div><span className="text-red-600 font-bold">&#123;</span></div>
             <div className="w-full ml-8">
-                <JsonToRender info={data} length={Object.entries(data).length} />
+                <JsonToRender
+                    info={data}
+                    length={Object.entries(data).length}
+                    open={false}
+                />
             </div>
             <div>
                 <div><span className="text-red-600 font-bold">&#125;</span></div>

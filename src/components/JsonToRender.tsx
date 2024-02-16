@@ -53,7 +53,7 @@ const renderFinalContent = (key, val, index) => {
     return renderElement
 }
 
-export const JsonToRender = ({info, length = 0}) => {
+export const JsonToRender = ({info, open, length = 0}) => {
     const entries = Object.entries(info);
 
     useEffect(() => {
@@ -96,14 +96,18 @@ export const JsonToRender = ({info, length = 0}) => {
                                 h-4 w-4 rounded-full flex items-center justify-center
                                 hover:opacity-50
                                 hover:bg-blue-200
-                                cursor-pointer">-</span>
+                                cursor-pointer">
+                                    {open ? '-' : '+'}
+                                </span>
                             </div>
 
                             <span>{!isNaN(+key) ? '' : <span>{key}:</span>}</span>
                             <span className="text-red-600 font-bold"> {bracketOpen}</span>
                         </div>
-                        <div className="ml-8 collapsable">
-                            {JsonToRender({info: val, length: val.length})}
+                        <div className="ml-8 collapsable"
+                             style={{display: open ? 'flex': 'none'}}
+                        >
+                            {JsonToRender({info: val, length: val.length, open})}
                         </div>
                         <div>
                             <span className="text-red-600 font-bold">{bracketClose}</span>
