@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Roboto:wght@300&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,4 +9,46 @@ html, body {
     height: 100%;
     background-color: rgb(31,41,55);
     color: #cbc7c7;
+}
+
+.profile-bg {
+    background-color: rgb(31,41,55);
+}
+
+.fira-mono-regular {
+    font-family: "Fira Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.fira-mono-medium {
+    font-family: "Fira Mono", monospace;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.fira-mono-bold {
+    font-family: "Fira Mono", monospace;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.roboto-light {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.twinkle {
+    width: fit-content;
+    animation-iteration-count: infinite;
+    animation-name: twinkle-1;
+    animation-duration: 1s;
+}
+
+@keyframes twinkle-1 {
+    50% {
+        transform: scale(0.5);
+        opacity: 0.5;
+    }
 }

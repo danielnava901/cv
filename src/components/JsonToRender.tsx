@@ -3,9 +3,13 @@ import reactStringReplace from "react-string-replace";
 
 function urlify(text) {
     return reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
-        <a key={i} href={match}
-           className="underline text-blue-200 is-url"
-           target="_blank">{match}</a>
+        <span className="w-[490px] truncate">
+            <span key={i}
+                data-url={match}
+               className="underline text-blue-200 is-url twinkle clickable"
+              >{match.length > 62 ?
+                `${match.substring(0,62)}...` : match}</span>
+        </span>
     ));
 }
 
@@ -13,7 +17,7 @@ function searchWords(text) {
     return reactStringReplace(text,
         /\b(Symfony|ReactJS|NextJS|Node|HTML|Python|Javascript|CSS|PHP|REST|SOAP|GPS|interfaces intuitivas|integración de sistemas|visualizar|cámaras|equipo de desarrollo)\b/,
         (match, i) => (
-        <span className="text-blue-200">{match}</span>
+        <span className="text-blue-200 twinkle clickable is-skill">{match}</span>
     ));
 }
 
@@ -38,7 +42,7 @@ const renderFinalContent = (key, val, index) => {
         case "string":
 
             renderElement = <SpanWrap k={key} key={`${key}-${index}`}>
-                <span className="text-[#690] cursor-pointer lg:max-w-[490px]">
+                <span className="text-[#690] cursor-pointer md:max-w-[490px]">
                     "{searchWords(urlify(val))}"<span className="text-violet-400">,</span>
                 </span>
             </SpanWrap>
