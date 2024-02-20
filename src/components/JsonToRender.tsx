@@ -3,8 +3,8 @@ import reactStringReplace from "react-string-replace";
 
 function urlify(text) {
     return reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
-        <span className="w-[490px] truncate">
-            <span key={i}
+        <span key={i} className="w-[490px] truncate">
+            <span
                 data-url={match}
                className="underline text-blue-200 is-url twinkle clickable"
               >{match.length > 62 ?
@@ -17,7 +17,7 @@ function searchWords(text) {
     return reactStringReplace(text,
         /\b(Symfony|ReactJS|NextJS|Node|HTML|Python|Javascript|CSS|PHP|REST|SOAP|GPS|interfaces intuitivas|integración de sistemas|visualizar|cámaras|equipo de desarrollo)\b/,
         (match, i) => (
-        <span className="text-blue-200 twinkle clickable is-skill">{match}</span>
+        <span key={i} className="text-blue-200 twinkle clickable is-skill">{match}</span>
     ));
 }
 
@@ -27,7 +27,7 @@ function isHidden(el) {
 }
 
 const SpanWrap = ({k, children, index}) => (
-    <div className="w-full flex hover:font-bold">
+    <div key={k} className="w-full flex hover:font-bold">
         <div className="flex">
             <span className="mr-2 text-yellow-400 cursor-pointer">{k}</span>
             <span className="mr-4">:</span>
@@ -102,7 +102,8 @@ export const JsonToRender = ({info, open, length = 0}) => {
                     const bracketOpen = isArray ? '[' : '{';
                     const bracketClose = isArray ? ']' : '}';
 
-                    return <div className="w-full collapsable-father">
+                    return <div key={index}
+                                className="w-full collapsable-father">
                         <div className="flex items-center">
                             <div className="collapsable-button">
                                 <span className="text-sm text-blue-500 mr-1
@@ -129,11 +130,11 @@ export const JsonToRender = ({info, open, length = 0}) => {
                     </div>
                 }else {
                     if (Array.isArray(val)) {
-                        return <div className="text-red-600 font-bold">[]</div>
+                        return <div key={index} className="text-red-600 font-bold">[]</div>
                     }else if(typeof val === "object"){
-                        return <div className="text-red-600 font-bold">{}</div>
+                        return <div key={index} className="text-red-600 font-bold">{}</div>
                     }else {
-                        return renderFinalContent(key, val, index);
+                        return <div key={index}>{renderFinalContent(key, val, index)}</div>
                     }
                 }
             })
