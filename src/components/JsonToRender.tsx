@@ -21,20 +21,13 @@ function searchWords(text) {
     ));
 }
 
-function isHidden(el) {
-    let style = window.getComputedStyle(el);
-    return (style.display === 'none')
-}
-
-const SpanWrap = ({k, children, index}) => (
-    <div key={k} className="w-full flex hover:font-bold">
+const SpanWrap = ({k, children, index}) => (<div key={k} className="w-full flex hover:font-bold">
         <div className="flex">
-            <span className="mr-2 text-yellow-400 cursor-pointer">{k}</span>
+            <span className="mr-2 text-yellow-400 cursor-pointer">{k} </span>
             <span className="mr-4">:</span>
         </div>
         {children}
-    </div>
-)
+    </div>);
 
 const renderFinalContent = (key, val, index) => {
     let renderElement;
@@ -69,30 +62,6 @@ const renderFinalContent = (key, val, index) => {
 export const JsonToRender = ({info, open, length = 0}) => {
     const entries = Object.entries(info);
 
-    useEffect(() => {
-        const collapsableButton = document.querySelectorAll(".collapsable-button");
-        collapsableButton.forEach((item) => {
-           item.addEventListener("click", function(ev) {
-               let spanChild = item.querySelector("span")
-               let parentElement = ev.target.parentElement;
-               parentElement = parentElement.parentElement;
-               parentElement = parentElement.parentElement;
-               const collapsable = parentElement.querySelector(".collapsable");
-
-
-               if(isHidden(collapsable)) {
-                   collapsable.style.display = "flex";
-                   spanChild.innerText = '-';
-               }else {
-                   collapsable.style.display = "none";
-                   spanChild.innerText = '+';
-               }
-
-           })
-        });
-
-    }, []);
-
     return <div className="w-full">
         {
             entries.map(([key, val] : [any, any], index) => {
@@ -116,7 +85,7 @@ export const JsonToRender = ({info, open, length = 0}) => {
                             </div>
 
                             <span className="text-yellow-400 cursor-pointer">{!isNaN(+key) ? '' : <span>{key}:</span>}</span>
-                            <span className="text-red-600 font-bold"> {bracketOpen}</span>
+                            <span className="text-red-600 font-bold">&nbsp;{bracketOpen}</span>
                         </div>
                         <div className="ml-8 collapsable"
                              style={{display: open ? 'flex': 'none'}}
@@ -130,9 +99,14 @@ export const JsonToRender = ({info, open, length = 0}) => {
                     </div>
                 }else {
                     if (Array.isArray(val)) {
-                        return <div key={index} className="text-red-600 font-bold">[]</div>
+                        return <SpanWrap k={key} key={index}>
+                                <div key={index} className="text-red-600 font-bold">[]</div>
+                            </SpanWrap>
+
                     }else if(typeof val === "object"){
-                        return <div key={index} className="text-red-600 font-bold">{}</div>
+                        return <SpanWrap k={key} key={index}>
+                            <div className="text-red-600 font-bold">{}</div>
+                        </SpanWrap>
                     }else {
                         return <div key={index}>{renderFinalContent(key, val, index)}</div>
                     }

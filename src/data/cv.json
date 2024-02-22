@@ -1,10 +1,23 @@
 {
     "name": "Daniel Nava Viveros",
     "job_position": "Web Developer",
+    "address": {
+        "country": "México",
+        "city": "México City"
+    },
     "photo_url": "https://res.cloudinary.com/dnviveros/image/upload/v1707958733/dnviveros/ykt2xpwncicstj6k9ntt.jpg",
     "phone_number": 5511537254,
     "email": "danielnava901@hotmail.com",
     "about_me": "Soy un apasionado programador web con 8 años de experiencia en el fascinante mundo de la tecnología. Mi dominio se extiende a través de diversos lenguajes de programación, incluyendo JavaScript, PHP, Python, HTML y CSS. Además, estoy familiarizado con potentes frameworks como Symfony, ReactJS y NextJS. Mi experiencia no se limita solo a la programación, ya que también he trabajado con Web services REST y SOAP, lo que me ha proporcionado un conocimiento integral en el desarrollo web. Mi habilidad para trabajar con mapas añade un toque especial a mi conjunto de habilidades, permitiéndome crear soluciones que van más allá de la simple programación. Estoy emocionado de compartir contigo mi experiencia y conocimientos a través de este espacio en línea. ¡Explora y descubre más sobre mi viaje en el mundo digital!",
+    "work_experience": [
+        {
+            "company": "TiLatina",
+            "job_description": "Actualmente, formo parte del equipo de desarrollo en Patito, una destacada empresa de seguridad especializada en el monitoreo de vehículos y sitios físicos mediante avanzadas cámaras de vigilancia y dispositivos GPS. En mi rol, lidero el desarrollo de la plataforma interna, asegurando su eficiencia y funcionalidad. Mi responsabilidad principal incluye la integración de sistemas de vigilancia de vehículos, permitiendo el seguimiento en tiempo real a través de las posiciones de localización reportadas. Asimismo, contribuyo al desarrollo de interfaces intuitivas para visualizar las cámaras de vigilancia, mejorando la capacidad de supervisión y respuesta ante cualquier situación. Además, me involucro activamente en la creación de reportes diarios, proporcionando información clave y relevante para nuestros clientes, fortaleciendo así nuestra posición como líderes en el sector de seguridad. Este desafiante y apasionante entorno laboral me brinda la oportunidad de aplicar y expandir mis habilidades como programador en el ámbito de la seguridad y la tecnología.",
+            "is_current_job": true,
+            "years": 8,
+            "company_site": "https://tilatina.com"
+        }
+    ],
     "social_media": [
         {
             "name": "Github",
@@ -16,15 +29,6 @@
             "university": "Instituto Politécnico Nacional",
             "title": "Ingeniero en comunicaciones y electrónica",
             "generation": "2009 - 2013"
-        }
-    ],
-    "work_experience": [
-        {
-            "company": "TiLatina",
-            "job_description": "Actualmente, formo parte del equipo de desarrollo en Patito, una destacada empresa de seguridad especializada en el monitoreo de vehículos y sitios físicos mediante avanzadas cámaras de vigilancia y dispositivos GPS. En mi rol, lidero el desarrollo de la plataforma interna, asegurando su eficiencia y funcionalidad. Mi responsabilidad principal incluye la integración de sistemas de vigilancia de vehículos, permitiendo el seguimiento en tiempo real a través de las posiciones de localización reportadas. Asimismo, contribuyo al desarrollo de interfaces intuitivas para visualizar las cámaras de vigilancia, mejorando la capacidad de supervisión y respuesta ante cualquier situación. Además, me involucro activamente en la creación de reportes diarios, proporcionando información clave y relevante para nuestros clientes, fortaleciendo así nuestra posición como líderes en el sector de seguridad. Este desafiante y apasionante entorno laboral me brinda la oportunidad de aplicar y expandir mis habilidades como programador en el ámbito de la seguridad y la tecnología.",
-            "is_current_job": true,
-            "years": 8,
-            "company_site": "https://tilatina.com"
         }
     ]
 }

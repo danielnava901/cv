@@ -32,7 +32,7 @@ const Skill = ({skill}) => {
         }
     }, []);
 
-    return <div className="w-full h-full">
+    return <div className="w-full h-full" style={{zIndex: 9}}>
         <div className="flex flex-col">
             <div className="p-2">Lenguajes</div>
             <span className={`px-8 py-2 w-fit 
