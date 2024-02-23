@@ -9,6 +9,10 @@ const Ultimatum = () => {
     const dayOfYear = date =>
         Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 86_400_000);
 
+    const todayDayOfYear = dayOfYear(today);
+    const limitDayOfYear = dayOfYear(limitDate);
+    const vacation = 10;
+
     return <div className="
         w-[100vw]
         h-[100vh]
@@ -20,17 +24,21 @@ const Ultimatum = () => {
         <div className="w-full flex flex-wrap">
             {
                 daysArray.map((day, index) => {
-                   return <div key={index} className={`
+                    let realIndex = index + 1;
+                    return <div key={index} className={`
                     w-12 h-12
                     border border-gray-400
                     rounded-full
                     flex justify-center items-center
                     text-white
-                    ${(index +1) <= dayOfYear(today) ? 'bg-yellow-600' :
-                       (index + 1) < dayOfYear(limitDate) ? 'bg-green-600 ': 
-                           'bg-green-900'
+                    ${ realIndex <= todayDayOfYear ? 'bg-yellow-600' :
+                        realIndex < limitDayOfYear ? (
+                            realIndex > (limitDayOfYear - vacation) && realIndex < limitDayOfYear 
+                               ? 'bg-rose-500' : 'bg-green-600'
+                       ): ''
                     }
                     ${(index + 1) === dayOfYear(today) ? 'twinkle' : ''}
+                    ${(index + 1) === dayOfYear(limitDate) ? 'twinkle bg-rose-800' : ''}
                    `}
 
                    >
