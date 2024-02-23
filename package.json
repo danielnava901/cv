@@ -20,7 +20,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-process-string": "^1.2.0",
-    "react-string-replace": "^1.1.1"
+    "react-string-replace": "^1.1.1",
+    "react-tsparticles": "^2.12.2",
+    "tsparticles-slim": "^2.12.0",
+    "@react-buddy/ide-toolbox": "^2.4.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.5",
