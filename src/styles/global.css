@@ -40,7 +40,6 @@ html, body {
 }
 
 .twinkle {
-    width: fit-content;
     animation-iteration-count: infinite;
     animation-name: twinkle-1;
     animation-duration: 1s;
