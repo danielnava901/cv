@@ -1,22 +1,19 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import {dayToDate} from "../lib/constants";
+import {PanelContext} from "../context/PanelContext";
 
 export const Day = ({className, indexDay}) => {
-    const [showTitle, setShowTitle] = useState(false);
+    const {setCurrentDay, setShow} = useContext(PanelContext);
 
-    const hideTitle = () => {
-        setTimeout(() => {
-            setShowTitle(false);
-        }, 2000);
+    const longPressEvent = () => {
+        setCurrentDay(indexDay);
+        setShow(true);
     }
 
     return (<div className="relative">
         <div
+            onClick={longPressEvent}
             title={`${dayToDate(indexDay).toLocaleDateString()}`}
-            onClick={() => {
-                setShowTitle(true);
-                hideTitle();
-            }}
             className={`
                 relative
                 w-12 h-12
@@ -26,13 +23,10 @@ export const Day = ({className, indexDay}) => {
                 text-white
                 ${className}
            `}
-
         >
             {indexDay}
         </div>
-        {
-            showTitle ? <Title>{dayToDate(indexDay).toLocaleDateString()}</Title> : null
-        }
+
     </div>)
 }
 

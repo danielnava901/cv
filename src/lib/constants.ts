@@ -8,4 +8,4 @@ export const daysOfYear = 366; /*2024*/
 export const dayOfYear = date =>
     Math.ceil((date - new Date(date.getFullYear(), 0, 0)) / 86_400_000);
 
-export const dayToDate = num => new Date(new Date().getFullYear(), 0, num);
+export const dayToDate = (num: number) => new Date(new Date().getFullYear(), 0, num);
